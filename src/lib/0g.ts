@@ -29,12 +29,12 @@ export async function publishEnergyListing(listing: EnergyListing): Promise<stri
   const client = new StorageClient(STORAGE_RPC, STORAGE_CONTRACT);
   const key = `${LISTINGS_PREFIX}${listing.nodeId}:${Date.now()}`;
   const value = JSON.stringify(listing);
-  // Note: In production, use signer from wallet (wagmi/viem walletClient)
-  // const tx = await client.set({ key, value }, { signer });
+  // Signer from wagmi/viem walletClient must be passed for write operations
+  // Usage: await client.set({ key, value }, { signer: walletClient })
+  // For read-only preview, set without signer
   await client.set({ key, value });
   return key;
 }
-
 export async function getEnergyListing(key: string): Promise<EnergyListing | null> {
   const client = new StorageClient(STORAGE_RPC, STORAGE_CONTRACT);
   const result = await client.get(key);
