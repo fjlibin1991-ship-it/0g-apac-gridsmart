@@ -89,6 +89,17 @@ contract EnergyNodeRegistry is ERC721, ERC721URIStorage, Ownable {
         return nodes[tokenId];
     }
 
+    /// @notice Check if an address owns an active (online) node — required by EnergyMarketplace
+    function isNodeActive(address owner) external view returns (bool) {
+        uint256[] memory nodeIds = ownerNodes[owner];
+        for (uint256 i = 0; i < nodeIds.length; i++) {
+            if (nodes[nodeIds[i]].status == NodeStatus.Online) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // ERC721URIStorage overrides
     function tokenURI(uint256 tokenId) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
