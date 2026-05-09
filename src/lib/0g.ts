@@ -15,12 +15,15 @@ const STORAGE_CONTRACT = process.env.NEXT_PUBLIC_0G_STORAGE_CONTRACT || "0x...";
 // ---------------------------------------------------------------------------
 
 export interface EnergyListing {
+  listingId: string;  // bytes32 as hex string
   nodeId: string;
   producer: string;
   energyType: "solar" | "wind" | "battery" | "grid";
   availableKwh: number;
   pricePerKwh: number; // in GRD tokens
+  totalKwh: number;
   expiresAt: number;  // unix timestamp
+  metadataURI?: string;
 }
 
 const LISTINGS_PREFIX = "gridshare:listing:";

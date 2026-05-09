@@ -19,9 +19,9 @@ export default function TradePage() {
   const filtered = filter === "all" ? listings : listings.filter((l) => l.energyType === filter);
 
   const mockListings: EnergyListing[] = [
-    { nodeId: "0x123", producer: "0xabc...", energyType: "solar", availableKwh: 12.5, pricePerKwh: 0.09, expiresAt: Date.now() / 1000 + 3600 },
-    { nodeId: "0x456", producer: "0xdef...", energyType: "wind", availableKwh: 8.2, pricePerKwh: 0.11, expiresAt: Date.now() / 1000 + 7200 },
-    { nodeId: "0x789", producer: "0xghi...", energyType: "solar", availableKwh: 20.0, pricePerKwh: 0.08, expiresAt: Date.now() / 1000 + 1800 },
+    { listingId: "0x123", nodeId: "0x123", producer: "0xabc...", energyType: "solar", availableKwh: 12.5, pricePerKwh: 0.09, totalKwh: 20, expiresAt: Date.now() / 1000 + 3600 },
+    { listingId: "0x456", nodeId: "0x456", producer: "0xdef...", energyType: "wind", availableKwh: 8.2, pricePerKwh: 0.11, totalKwh: 15, expiresAt: Date.now() / 1000 + 7200 },
+    { listingId: "0x789", nodeId: "0x789", producer: "0xghi...", energyType: "solar", availableKwh: 20.0, pricePerKwh: 0.08, totalKwh: 30, expiresAt: Date.now() / 1000 + 1800 },
   ];
 
   return (
@@ -67,7 +67,10 @@ export default function TradePage() {
                 <div className="text-right">
                   <div className="text-2xl font-bold text-green-400">${listing.pricePerKwh.toFixed(2)}</div>
                   <div className="text-xs text-gray-500">per kWh</div>
-                  <button className="mt-2 px-4 py-1.5 bg-green-600 hover:bg-green-500 text-white text-sm rounded-lg transition">
+                  <button
+                    className="mt-2 px-4 py-1.5 bg-green-600 hover:bg-green-500 text-white text-sm rounded-lg transition"
+                    onClick={() => alert(`Buying energy from listing ${listing.listingId.slice(0, 8)}... (contract integration needed)`)}
+                  >
                     Buy Energy
                   </button>
                 </div>
